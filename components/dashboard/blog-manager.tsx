@@ -71,7 +71,6 @@ export default function BlogManager() {
     }
   }
 
-  // firdt
 
   const handleSave = async (blogData: Partial<Blog> & { id?: string }) => {
   try {
