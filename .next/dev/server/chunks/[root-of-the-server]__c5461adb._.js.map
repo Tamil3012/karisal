@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///E:/v2%20E-com/tamil/app/api/auth/verify/route.ts"],"sourcesContent":["import { cookies } from \"next/headers\"\nimport { NextResponse } from \"next/server\"\n\nexport async function GET() {\n  const cookieStore = await cookies()\n  const session = cookieStore.get(\"admin_session\")\n\n  if (!session) {\n    return NextResponse.json({ authenticated: false }, { status: 401 })\n  }\n\n  return NextResponse.json({ authenticated: true })\n}\n"],"names":[],"mappings":";;;;AAAA;AACA;;;AAEO,eAAe;IACpB,MAAM,cAAc,MAAM,IAAA,4IAAO;IACjC,MAAM,UAAU,YAAY,GAAG,CAAC;IAEhC,IAAI,CAAC,SAAS;QACZ,OAAO,gJAAY,CAAC,IAAI,CAAC;YAAE,eAAe;QAAM,GAAG;YAAE,QAAQ;QAAI;IACnE;IAEA,OAAO,gJAAY,CAAC,IAAI,CAAC;QAAE,eAAe;IAAK;AACjD"}}]
+}

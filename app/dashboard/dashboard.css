@@ -1,0 +1,23 @@
+/* Dashboard-specific styles to override global layout */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent header/footer from showing in dashboard */
+header,
+footer {
+  display: none !important;
+}
+
+
+/* smooth scroll and no ugly scrollbar */
+aside::-webkit-scrollbar,
+main::-webkit-scrollbar {
+  width: 6px;
+}
+aside::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 5px;
+}
