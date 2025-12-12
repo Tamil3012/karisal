@@ -1,0 +1,8 @@
+name = "karisal"
+compatibility_date = "2024-12-12"
+
+[build]
+command = "npm run build"
+
+[site]
+bucket = ".vercel/output/static"
