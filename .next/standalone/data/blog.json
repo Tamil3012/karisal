@@ -1,0 +1,232 @@
+[
+  {
+    "id": "b1",
+    "slug": "how-to-use-tailwind",
+    "title": "Tamil valavan A",
+    "excerpt": "Learn the basics of Tailwind CSS and how to build responsive designs quickly.",
+    "contentHtml": "<h2>Getting Started</h2><p>Tailwind CSS is a utility-first CSS framework for rapidly building custom designs. Here's how to get started.</p><h3>Installation</h3><p>Install Tailwind via npm and configure your project.</p><p><strong>Key benefits:</strong></p><ul><li>Fast prototyping</li><li>Responsive design</li><li>Customizable theme</li></ul>",
+    "images": [
+      "/uploads/1765111682039-3065766-1288x2289-mobile-hd-obito-uchiha-background_1762938036_converted.webp"
+    ],
+    "video": "/uploads/tailwind-intro.mp4",
+    "likes": 123,
+    "stars": 4.5,
+    "comments": [
+      {
+        "id": "c1",
+        "author": "Alice Johnson",
+        "text": "Great guide! Really helpful for beginners.",
+        "createdAt": "2025-12-05T10:00:00.000Z"
+      },
+      {
+        "id": "c2",
+        "author": "Bob Smith",
+        "text": "Nice examples. Saved this for reference.",
+        "createdAt": "2025-12-05T11:30:00.000Z"
+      }
+    ],
+    "author": "John Doe",
+    "status": 1,
+    "featured": 0,
+    "categoryIds": [
+      "cat3"
+    ],
+    "createdAt": "2025-12-01T10:00:00.000Z",
+    "updatedAt": "2025-12-10T05:01:48.460Z",
+    "views": 1200
+  },
+  {
+    "id": "b2",
+    "slug": "nextjs-performance-tips",
+    "title": "Next.js Performance Tips & Tricks",
+    "excerpt": "Optimize your Next.js applications for better performance and faster load times.",
+    "contentHtml": "<h2>Performance Optimization</h2><p>Next.js provides built-in optimizations. Let's explore advanced techniques.</p><h3>Image Optimization</h3><p>Use the Next.js Image component for automatic optimization.</p><h3>Code Splitting</h3><p>Dynamic imports help reduce bundle size.</p>",
+    "images": [
+      "/uploads/nextjs1.jpg"
+    ],
+    "video": "",
+    "likes": 89,
+    "stars": 4.8,
+    "comments": [
+      {
+        "id": "c3",
+        "author": "Sarah Chen",
+        "text": "Excellent tips for production apps!",
+        "createdAt": "2025-12-04T14:20:00.000Z"
+      }
+    ],
+    "author": "Jane Smith",
+    "status": 1,
+    "featured": 1,
+    "categoryIds": [
+      "cat2"
+    ],
+    "createdAt": "2025-11-25T09:00:00.000Z",
+    "updatedAt": "2025-12-10T19:56:03.851Z",
+    "views": 850
+  },
+  {
+    "id": "b3",
+    "slug": "react-hooks-guide",
+    "title": "Mastering React Hooks",
+    "excerpt": "Deep dive into React Hooks and learn how to use them effectively in your projects.",
+    "contentHtml": "<h2>Introduction to Hooks</h2><p>React Hooks allow you to use state and other React features without writing a class.</p><h3>useState Hook</h3><p>Manage component state with the useState hook.</p><h3>useEffect Hook</h3><p>Perform side effects in functional components.</p>",
+    "images": [
+      "/uploads/react1.jpg"
+    ],
+    "video": "",
+    "likes": 256,
+    "stars": 4.9,
+    "comments": [],
+    "author": "Mike Johnson",
+    "status": 1,
+    "featured": 1,
+    "categoryIds": [
+      "cat1",
+      "cat2"
+    ],
+    "createdAt": "2025-11-20T08:00:00.000Z",
+    "updatedAt": "2025-12-07T06:56:56.489Z",
+    "views": 2100
+  },
+  {
+    "id": "b4",
+    "slug": "css-grid-layouts",
+    "title": "CSS Grid Layouts Explained",
+    "excerpt": "Master CSS Grid and create complex layouts with ease.",
+    "contentHtml": "<h2>CSS Grid Basics</h2><p>CSS Grid is a two-dimensional layout system that makes it easy to create responsive grids.</p>",
+    "images": [
+      "/uploads/1765111653568-Natril Naturals website  banner 3.png"
+    ],
+    "video": "",
+    "likes": 45,
+    "stars": 4.2,
+    "comments": [],
+    "author": "John Doe",
+    "status": 1,
+    "featured": 1,
+    "categoryIds": [
+      "cat1"
+    ],
+    "createdAt": "2025-11-15T07:00:00.000Z",
+    "updatedAt": "2025-12-09T19:38:59.907Z",
+    "views": 340
+  },
+  {
+    "id": "mivdwgliahs8jnsujgm",
+    "slug": "test",
+    "title": "test",
+    "excerpt": "test",
+    "contentHtml": "test",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "test",
+    "status": 1,
+    "featured": 1,
+    "categoryIds": [
+      "cat1",
+      "mitxdp8tusbwrc4kfjq"
+    ],
+    "createdAt": "2025-12-07T07:11:33.127Z",
+    "updatedAt": "2025-12-09T19:42:18.290Z",
+    "views": 0
+  },
+  {
+    "id": "miyvdleo4w1bd6mqo1w",
+    "slug": "test1",
+    "title": "test1",
+    "excerpt": "",
+    "contentHtml": "",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "Anonymous",
+    "status": 1,
+    "featured": 0,
+    "categoryIds": [],
+    "createdAt": "2025-12-09T17:44:04.512Z",
+    "updatedAt": "2025-12-09T17:44:04.512Z",
+    "views": 0
+  },
+  {
+    "id": "miyvdsyualrt4cvfwjj",
+    "slug": "test2",
+    "title": "test2",
+    "excerpt": "",
+    "contentHtml": "",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "Anonymous",
+    "status": 1,
+    "featured": 0,
+    "categoryIds": [],
+    "createdAt": "2025-12-09T17:44:14.310Z",
+    "updatedAt": "2025-12-09T17:44:14.310Z",
+    "views": 0
+  },
+  {
+    "id": "miyve4bajj1xg8m1vxj",
+    "slug": "test3",
+    "title": "test3",
+    "excerpt": "",
+    "contentHtml": "",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "Anonymous",
+    "status": 0,
+    "featured": 1,
+    "categoryIds": [],
+    "createdAt": "2025-12-09T17:44:29.014Z",
+    "updatedAt": "2025-12-09T19:55:38.383Z",
+    "views": 0
+  },
+  {
+    "id": "miyvej84k3q0wefv8ni",
+    "slug": "test7",
+    "title": "test7",
+    "excerpt": "",
+    "contentHtml": "",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "Anonymous",
+    "status": 1,
+    "featured": 0,
+    "categoryIds": [],
+    "createdAt": "2025-12-09T17:44:48.340Z",
+    "updatedAt": "2025-12-09T17:44:48.340Z",
+    "views": 0
+  },
+  {
+    "id": "miyvesgpjeg4k0c28dq",
+    "slug": "test8",
+    "title": "test8",
+    "excerpt": "",
+    "contentHtml": "",
+    "images": [],
+    "video": "",
+    "likes": 0,
+    "stars": 0,
+    "comments": [],
+    "author": "Anonymous",
+    "status": 1,
+    "featured": 0,
+    "categoryIds": [],
+    "createdAt": "2025-12-09T17:45:00.313Z",
+    "updatedAt": "2025-12-10T19:55:56.522Z",
+    "views": 0
+  }
+]
