@@ -1,4 +1,4 @@
-// File: E:\v2 E-com\tamil\app\api\auth\verify\route.ts
+// File: E:\v2 E-com\karisal\app\api\auth\verify\route.ts
 import * as entry from '../../../../../../app/api/auth/verify/route.js'
 import type { NextRequest } from 'next/server.js'
 

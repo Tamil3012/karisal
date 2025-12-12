@@ -1,3 +1,7 @@
-name = "karisal"
-compatibility_date = "2024-04-18"
-pages_build_output_dir = ".open-next"
+name = "karisal"  # Change if needed
+main = ".open-next/cloudflare/index.js"
+compatibility_date = "2025-12-11"  # Recent date for full compat
+compatibility_flags = ["nodejs_compat"]  # Critical for your route.ts APIs
+
+[assets]
+directory = ".open-next/cloudflare/static"

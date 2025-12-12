@@ -1,4 +1,4 @@
-// File: E:\v2 E-com\tamil\app\api\admin\blogs\route.ts
+// File: E:\v2 E-com\karisal\app\api\admin\blogs\route.ts
 import * as entry from '../../../../../../app/api/admin/blogs/route.js'
 import type { NextRequest } from 'next/server.js'
 
