@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///E:/v2%20E-com/tamil/app/dashboard/dashboard.css"],"sourcesContent":["/* Dashboard-specific styles to override global layout */\nbody {\n  margin: 0;\n  padding: 0;\n}\n\n/* Prevent header/footer from showing in dashboard */\nheader,\nfooter {\n  display: none !important;\n}\n\n\n/* smooth scroll and no ugly scrollbar */\naside::-webkit-scrollbar,\nmain::-webkit-scrollbar {\n  width: 6px;\n}\naside::-webkit-scrollbar-thumb,\nmain::-webkit-scrollbar-thumb {\n  background: #d4d4d4;\n  border-radius: 5px;\n}\n"],"names":[],"mappings":"AACA;;;;;AAMA;;;;AAOA;;;;AAAA;;;;AAIA;;;;;AAAA"}}]
-}
