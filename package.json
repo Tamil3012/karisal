@@ -7,9 +7,10 @@
     "lint": "eslint .",
     "start": "next start",
     "build": "next build",
-  "pages:build": "npx @cloudflare/next-on-pages@latest build"
+    "pages:build": "npx @cloudflare/next-on-pages@latest build"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
