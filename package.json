@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
+    "pages:build": "npx @cloudflare/next-on-pages@latest build",
+    "dev": "next dev",
     "build": "next build",
-    "pages:build": "npx @cloudflare/next-on-pages@latest build"
+    "preview": "opennextjs-cloudflare build && wrangler pages dev",
+    "deploy": "opennextjs-cloudflare build && wrangler pages deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

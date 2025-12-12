@@ -1,6 +1,7 @@
-import withOpenNext from "@opennextjs/cloudflare";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
-export default withOpenNext({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     unoptimized: true,
   },
@@ -10,4 +11,8 @@ export default withOpenNext({
   eslint: {
     ignoreDuringBuilds: true,
   },
-});
+};
+
+export default nextConfig;
+
+initOpenNextCloudflareForDev();
