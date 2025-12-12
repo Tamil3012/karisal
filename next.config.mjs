@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",  // Essential for API routes on Workers
+  output: "standalone",  // Essential for full features + API routes on Workers
 
   images: {
-    unoptimized: true,
+    unoptimized: true,  // Use Cloudflare Images if needed later
   },
 };
 

@@ -1,7 +1,12 @@
-name = "karisal"  # Change if needed
+name = "karisal"
 main = ".open-next/cloudflare/index.js"
-compatibility_date = "2025-12-11"  # Recent date for full compat
-compatibility_flags = ["nodejs_compat"]  # Critical for your route.ts APIs
+compatibility_date = "2025-12-11"
+compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = ".open-next/cloudflare/static"
+
+# Add this for R2 caching
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"  # Exact name!
+bucket_name = "karisal-incremental-cache"  # Your bucket name
