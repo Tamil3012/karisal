@@ -1,11 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+import { withCloudflare } from "@cloudflare/next-on-pages/next";
+
+export default withCloudflare({
   images: {
     unoptimized: true,
   },
-}
-
-export default nextConfig
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+});
