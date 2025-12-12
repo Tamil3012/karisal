@@ -1,7 +1,13 @@
-import { withCloudflare } from "@cloudflare/next-on-pages/next";
+import withOpenNext from "@opennextjs/cloudflare";
 
-export default withCloudflare({
-  images: { unoptimized: true },
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
+export default withOpenNext({
+  images: {
+    unoptimized: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 });
