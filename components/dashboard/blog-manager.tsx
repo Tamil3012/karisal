@@ -71,7 +71,6 @@ export default function BlogManager() {
     }
   }
 
-
   const handleSave = async (blogData: Partial<Blog> & { id?: string }) => {
   try {
     const normalizedBlog = {
