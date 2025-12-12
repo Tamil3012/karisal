@@ -1,1 +1,44 @@
-node_modules
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Local environment variables
+.env
+.env*.local
+
+# Next.js build output
+.next/
+out/
+dist/
+
+# Debug and log files
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Build cache
+.next/cache/
+.cache/
+
+# Cloudflare / wrangler
+.worker/
+.wrangler/
+
+# SASS cache
+.sass-cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated files
+coverage/
