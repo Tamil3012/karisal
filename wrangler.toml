@@ -1,12 +1,3 @@
 name = "karisal"
-main = ".open-next/cloudflare/index.js"
-compatibility_date = "2025-12-11"
-compatibility_flags = ["nodejs_compat"]
-
-[assets]
-directory = ".open-next/cloudflare/static"
-
-# Add this for R2 caching
-[[r2_buckets]]
-binding = "NEXT_INC_CACHE_R2_BUCKET"  # Exact name!
-bucket_name = "karisal-incremental-cache"  # Your bucket name
+compatibility_date = "2024-04-18"
+pages_build_output_dir = ".open-next"

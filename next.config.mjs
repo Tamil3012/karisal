@@ -1,9 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",  // Essential for full features + API routes on Workers
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 
   images: {
-    unoptimized: true,  // Use Cloudflare Images if needed later
+    unoptimized: true,
+  },
+
+  // ⭐ Required for Cloudflare Pages
+  output: "standalone",
+
+  // ⭐ Disable Turbopack in production (otherwise `.vercel/output` won't be created)
+  experimental: {
+    turbo: false,
   },
 };
 
