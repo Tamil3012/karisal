@@ -8,10 +8,10 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  // ⭐ Required for Cloudflare Pages
-  output: "standalone",
+  // ⭐ DO NOT use "standalone" for @cloudflare/next-on-pages
+  // Remove this line completely - standalone is incompatible with Cloudflare adapter
+  // output: "standalone",
 
-  // ⭐ Disable Turbopack in production (otherwise `.vercel/output` won't be created)
   experimental: {
     turbo: false,
   },
