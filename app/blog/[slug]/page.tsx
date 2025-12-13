@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import BlogCard from "@/components/blog-card"
 
-
 export default function BlogDetailPage() {
   const params = useParams()
   const slug = params.slug as string

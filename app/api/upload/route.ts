@@ -8,8 +8,6 @@ async function isAdmin() {
   return !!cookieStore.get("admin_session")
 }
 
-export const runtime = "edge";
-
 export async function POST(request: NextRequest) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })

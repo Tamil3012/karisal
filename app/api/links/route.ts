@@ -1,8 +1,6 @@
 import { readJsonFile } from "@/lib/file-utils"
 import { NextResponse } from "next/server"
 
-export const runtime = "edge";
-
 export async function GET() {
   try {
     const links = await readJsonFile("links.json")

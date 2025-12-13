@@ -7,8 +7,6 @@ async function isAdmin() {
   return !!cookieStore.get("admin_session")
 }
 
-export const runtime = "edge";
-
 export async function GET(request: NextRequest) {
   try {
     const blogs = await readJsonFile("blog.json")
