@@ -21,8 +21,6 @@ export async function writeJsonFile(filename: string, data: any) {
 }
 
 export async function ensureUploadsDir() {
-  // Not needed for Vercel - but keeping for compatibility
-  // File uploads should use Vercel Blob storage instead
   return true
 }
 

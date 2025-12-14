@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 async function migrateData() {
-  console.log('Starting data migration...')
+  console.log('🚀 Starting data migration to Upstash KV...\n')
   
   const dataFiles = [
     'blog.json',
@@ -21,18 +21,20 @@ async function migrateData() {
         const jsonData = JSON.parse(fileContent)
         
         await kv.set(filename, jsonData)
-        console.log(`✓ Migrated ${filename} - ${Array.isArray(jsonData) ? jsonData.length : 'N/A'} items`)
+        
+        const count = Array.isArray(jsonData) ? jsonData.length : 'object'
+        console.log(`✅ Migrated ${filename} - ${count} items`)
       } else {
-        // Initialize empty array if file doesn't exist
         await kv.set(filename, [])
-        console.log(`✓ Initialized empty ${filename}`)
+        console.log(`⚠️  ${filename} not found, initialized with empty array`)
       }
     } catch (error) {
-      console.error(`✗ Error migrating ${filename}:`, error)
+      console.error(`❌ Error migrating ${filename}:`, error)
     }
   }
   
-  console.log('Migration complete!')
+  console.log('\n🎉 Migration complete!')
+  console.log('You can now run: npm run dev\n')
   process.exit(0)
 }
 
