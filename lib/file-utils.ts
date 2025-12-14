@@ -1,13 +1,9 @@
-import { promises as fs } from "fs"
-import path from "path"
-
-const dataDir = path.join(process.cwd(), "data")
+import { kv } from '@vercel/kv'
 
 export async function readJsonFile(filename: string) {
   try {
-    const filePath = path.join(dataDir, filename)
-    const data = await fs.readFile(filePath, "utf-8")
-    return JSON.parse(data)
+    const data = await kv.get(filename)
+    return data || null
   } catch (error) {
     console.error(`Error reading ${filename}:`, error)
     return null
@@ -16,11 +12,7 @@ export async function readJsonFile(filename: string) {
 
 export async function writeJsonFile(filename: string, data: any) {
   try {
-    const filePath = path.join(dataDir, filename)
-    // Ensure data directory exists
-    await fs.mkdir(dataDir, { recursive: true })
-    // Write with formatting
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2))
+    await kv.set(filename, data)
     return true
   } catch (error) {
     console.error(`Error writing ${filename}:`, error)
@@ -29,8 +21,9 @@ export async function writeJsonFile(filename: string, data: any) {
 }
 
 export async function ensureUploadsDir() {
-  const uploadsDir = path.join(process.cwd(), "public", "uploads")
-  await fs.mkdir(uploadsDir, { recursive: true })
+  // Not needed for Vercel - but keeping for compatibility
+  // File uploads should use Vercel Blob storage instead
+  return true
 }
 
 export function generateId() {

@@ -27,12 +27,12 @@
     ],
     "author": "John Doe",
     "status": 1,
-    "featured": 1,
+    "featured": 0,
     "categoryIds": [
       "cat3"
     ],
     "createdAt": "2025-12-01T10:00:00.000Z",
-    "updatedAt": "2025-12-13T19:03:51.732Z",
+    "updatedAt": "2025-12-10T05:01:48.460Z",
     "views": 1200
   },
   {
