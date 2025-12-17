@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+
+.monoton-regular {
+  font-family: "Monoton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 @custom-variant dark (&:is(.dark *));
 
@@ -75,8 +85,6 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -45,6 +45,9 @@ export default function Header() {
               <a href="#" className="text-gray-600 hover:text-gray-900">
                 About
               </a>
+              <a href="/contact" className="text-gray-600 hover:text-gray-900">
+                ContactUs
+              </a>
             </nav>
 
             <div className="flex items-center gap-4">
@@ -62,7 +65,7 @@ export default function Header() {
 
               {isAuthenticated ? (
                 <Link href="/dashboard" target="blank">
-                  <Button variant="default" size="sm">
+                  <Button className="!text-white" variant="default" size="sm">
                     Dashboard
                   </Button>
                 </Link>
