@@ -3,9 +3,22 @@ import { kv } from '@vercel/kv'
 export async function readJsonFile(filename: string) {
   try {
     const data = await kv.get(filename)
+    
+    // If file doesn't exist and it's link-categories.json, return empty array
+    if (!data && filename === 'link-categories.json') {
+      await kv.set(filename, [])
+      return []
+    }
+    
     return data || null
   } catch (error) {
     console.error(`Error reading ${filename}:`, error)
+    
+    // Return empty array for link-categories.json on error
+    if (filename === 'link-categories.json') {
+      return []
+    }
+    
     return null
   }
 }

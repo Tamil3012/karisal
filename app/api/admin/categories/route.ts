@@ -13,13 +13,14 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, slug } = await request.json()
+    const { name, slug, image } = await request.json()
     const categories = await readJsonFile("categories.json")
 
     const newCategory = {
       id: generateId(),
       name,
       slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
+      image: image || null,
       createdAt: new Date().toISOString(),
     }
 

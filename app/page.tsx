@@ -1,5 +1,6 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import BlogCard from "@/components/blog-card"
@@ -9,6 +10,9 @@ import ContactUs from "@/components/ContactUs"
 import Loading from "@/components/Loading"
 import BannerCarousel from "@/components/BannerCarousel"
 import "antd/dist/reset.css"
+import MostViewCategories from "@/components/dashboard/MostViewCategories"
+import AllBlogCategories from "@/components/dashboard/AllBlogCategories"
+
 
 
 export default function HomePage() {
@@ -18,6 +22,10 @@ export default function HomePage() {
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("all")
 
+
+ 
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,10 +34,12 @@ export default function HomePage() {
         const featuredData = await featuredRes.json()
         setFeaturedBlogs(featuredData.blogs || [])
 
+
         // Fetch all blogs
         const allRes = await fetch("/api/blogs?status=1")
         const allData = await allRes.json()
         setAllBlogs(allData.blogs || [])
+
 
         // Fetch categories
         const catRes = await fetch("/api/categories")
@@ -42,11 +52,14 @@ export default function HomePage() {
       }
     }
 
+
     fetchData()
   }, [])
 
+
   const filteredBlogs =
     selectedCategory === "all" ? allBlogs : allBlogs.filter((blog: any) => blog.categoryIds.includes(selectedCategory))
+
 
   if (loading) {
     return <div className="text-center py-20">
@@ -54,14 +67,18 @@ export default function HomePage() {
     </div>
   }
 
+
   return (
     <div className="min-h-screen bg-white">
 
 
-      {/* <BannerCarousel /> */}
-      
+
+      <BannerCarousel />
+     
+
 
        <CreativeIdea />
+
 
 
       {/* Category Filter */}
@@ -89,6 +106,7 @@ export default function HomePage() {
         </div>
       </section>
 
+
       {/* Featured Section */}
       {featuredBlogs.length > 0 && (
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -103,7 +121,9 @@ export default function HomePage() {
         </section>
       )}
 
+
        <ScrollContent />
+
 
       {/* All Blogs Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
@@ -116,6 +136,14 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+
+
+      <MostViewCategories categories={categories} />
+
+
+      <AllBlogCategories categories={categories} />
+
 
       {/* <ContactUs/> */}
     </div>

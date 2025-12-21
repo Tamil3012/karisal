@@ -6,7 +6,7 @@ type DotPlacement = CarouselProps['dotPlacement'];
 
 const contentStyle: React.CSSProperties = {
   margin: 0,
-  height: '700px',
+  height: '500px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',

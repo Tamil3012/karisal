@@ -17,8 +17,7 @@ export default function DashboardSidebar({ activeTab, setActiveTab, onLogout, is
       section: "ADMIN",
       items: [
         { id: "dashboard", label: "Dashboard", icon: Home },
-        // { id: "users", label: "Users", icon: Users, hasArrow: true },
-        // { id: "activities", label: "Activities", icon: Activity },
+        { id: "alllinks", label: "All Links", icon: Home },
       ],
     },
     {
@@ -79,13 +78,13 @@ export default function DashboardSidebar({ activeTab, setActiveTab, onLogout, is
                     onClick={() => setActiveTab(item.id)}
                     className={`w-full flex items-center px-4 py-3 rounded-lg transition-all font-semibold text-sm group relative
                       ${isActive 
-                        ? "bg-gray-950 text-white shadow-md" 
+                        ? "bg-gray-950 !text-white shadow-md" 
                         : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       } ${!isOpen && "justify-center"}`}
                   >
                     {/* Icon + Label */}
                     <div className={`flex items-center ${isOpen ? "gap-3" : "gap-0"}`}>
-                      <Icon size={20} className={isActive ? "text-white" : "text-gray-600"} />
+                      <Icon size={20} className={isActive ? "!text-white" : "text-gray-600"} />
                       <span className={`transition-all duration-300 ${isOpen ? "block" : "hidden"}`}>
                         {item.label}
                       </span>
@@ -96,14 +95,14 @@ export default function DashboardSidebar({ activeTab, setActiveTab, onLogout, is
                       {item.badge && (
                         <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
                           item.badge.includes("New")
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
+                            ? "!bg-green-100 !text-green-700"
+                            : "!bg-red-100 !text-red-700"
                         }`}>
                           {item.badge}
                         </span>
                       )}
                       {item.hasArrow && (
-                        <ChevronRight size={16} className={isActive ? "text-white/70" : "text-gray-400"} />
+                        <ChevronRight size={16} className={isActive ? "!text-white/70" : "!text-gray-400"} />
                       )}
                     </div>
                   </button>
@@ -118,7 +117,7 @@ export default function DashboardSidebar({ activeTab, setActiveTab, onLogout, is
       <div className="p-4 border-t border-gray-300">
         <Button
           onClick={onLogout}
-          className={`w-full bg-gray-950 hover:bg-black text-white font-semibold rounded-lg py-6 flex items-center transition-all ${
+          className={`w-full bg-gray-950 hover:bg-black !text-white font-semibold rounded-lg py-6 flex items-center transition-all ${
             isOpen ? "justify-center gap-3" : "justify-center"
           }`}
         >

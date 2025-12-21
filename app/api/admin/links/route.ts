@@ -13,13 +13,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { title, href } = await request.json()
-    const links = await readJsonFile("links.json")
+    const { title, href, categoryId } = await request.json()
+    let links = await readJsonFile("links.json")
+    
+    if (!Array.isArray(links)) {
+      links = []
+    }
 
     const newLink = {
       id: generateId(),
       title,
       href,
+      categoryId: categoryId || null,
       createdAt: new Date().toISOString(),
     }
 
@@ -32,6 +37,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(newLink, { status: 201 })
   } catch (error) {
+    console.error("Error creating link:", error)
     return NextResponse.json({ error: "Failed to create link" }, { status: 500 })
   }
 }

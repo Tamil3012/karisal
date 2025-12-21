@@ -11,6 +11,7 @@ import DashboardSidebar from "@/components/dashboard/dashboard-sidebar";
 import LinkManager from "@/components/dashboard/link-manager";
 import DashboardHeader from "@/components/header";
 import DashboardNav from "./DashboardNav";
+import AllLinks from "@/components/dashboard/AllLinks";
 
 interface BlogStats {
   totalBlogs: number;
@@ -226,6 +227,7 @@ export default function DashboardPage() {
             )}
 
             {activeTab === "blogs" && <BlogManager />}
+            {activeTab === "alllinks" && <AllLinks />}
             {activeTab === "categories" && <CategoryManager />}
             {activeTab === "links" && <LinkManager />}
             {activeTab === "colors" && <ColorManager />}

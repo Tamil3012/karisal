@@ -8,14 +8,10 @@ import Footer from "@/components/footer"
 import { Toaster } from "@/components/ui/toaster"
 import ColorVarsLoader from "@/components/color-vars-loader"
 
-
-
-
 export const metadata: Metadata = {
   title: "Blog Hub - Insights and Inspiration",
   description: "Explore our curated collection of insights, tips, and industry trends to elevate your knowledge.",
   keywords: "blog, articles, insights, technology, frontend, backend, devops",
-  generator: "v0.app",
   openGraph: {
     title: "Blog Hub",
     description: "Explore our curated collection of insights",
@@ -40,7 +36,6 @@ export const metadata: Metadata = {
   },
 }
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -48,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <ColorVarsLoader />
         <Header />
         <main className="min-h-screen">{children}</main>

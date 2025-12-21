@@ -12,6 +12,7 @@ interface Blog {
   id: string
   title: string
   content?: string
+  image?: string
   featured: 0 | 1 | boolean
   status: 0 | 1 | boolean
   likes?: number
@@ -72,54 +73,53 @@ export default function BlogManager() {
   }
 
   const handleSave = async (blogData: Partial<Blog> & { id?: string }) => {
-  try {
-    const normalizedBlog = {
-      ...blogData,
-      featured: Number(blogData.featured) === 1 ? 1 : 0,
-      status: Number(blogData.status) === 1 ? 1 : 0,
-      likes: Number(blogData.likes) || 0,
-      stars: Number(blogData.stars) || 0,
-    };
+    try {
+      const normalizedBlog = {
+        ...blogData,
+        featured: Number(blogData.featured) === 1 ? 1 : 0,
+        status: Number(blogData.status) === 1 ? 1 : 0,
+        likes: Number(blogData.likes) || 0,
+        stars: Number(blogData.stars) || 0,
+      }
 
-    let response;
-    if (editingBlog) {
-      response = await fetch(`/api/admin/blogs/${editingBlog.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(normalizedBlog),
-      });
-    } else {
-      response = await fetch("/api/admin/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(normalizedBlog),
-      });
+      let response
+      if (editingBlog) {
+        response = await fetch(`/api/admin/blogs/${editingBlog.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(normalizedBlog),
+        })
+      } else {
+        response = await fetch("/api/admin/blogs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(normalizedBlog),
+        })
+      }
+
+      if (!response.ok) throw new Error("Save failed")
+
+      const savedBlog: Blog = await response.json()
+
+      if (editingBlog) {
+        setBlogs(blogs.map((b) => (b.id === savedBlog.id ? savedBlog : b)))
+        toast({ title: "Success", description: "Blog updated successfully" })
+      } else {
+        setBlogs([...blogs, savedBlog])
+        toast({ title: "Success", description: "Blog created successfully" })
+      }
+
+      setShowForm(false)
+      setEditingBlog(null)
+    } catch (error) {
+      console.error(error)
+      toast({
+        title: "Error",
+        description: "Failed to save blog",
+        variant: "destructive",
+      })
     }
-
-    if (!response.ok) throw new Error("Save failed");
-
-    const savedBlog: Blog = await response.json();
-
-    if (editingBlog) {
-      setBlogs(blogs.map((b) => (b.id === savedBlog.id ? savedBlog : b)));
-      toast({ title: "Success", description: "Blog updated successfully" });
-    } else {
-      setBlogs([...blogs, savedBlog]);
-      toast({ title: "Success", description: "Blog created successfully" });
-    }
-
-    setShowForm(false);
-    setEditingBlog(null);
-  } catch (error) {
-    console.error(error);
-    toast({
-      title: "Error",
-      description: "Failed to save blog",
-      variant: "destructive",
-    });
   }
-};
-
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -205,6 +205,7 @@ export default function BlogManager() {
                 setShowForm(true)
                 setEditingBlog(null)
               }}
+              className="!text-white"
             >
               Add New Blog
             </Button>
@@ -228,22 +229,20 @@ export default function BlogManager() {
 
           {/* Search Bar */}
           <div className="relative mb-8">
-            {/* Search Icon */}
             <Search 
               className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" 
               size={20} 
             />
             
-            {/* Input Field */}
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search blogs by title..."
-              className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-12 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ height: "40px" }}
             />
             
-            {/* Clear Button (X Icon) - Only shows when there's text */}
             {searchQuery && (
               <button
                 type="button"
@@ -264,7 +263,7 @@ export default function BlogManager() {
           <div className="mb-10">
             <BlogList
               blogs={paginatedBlogs}
-              onEdit={(blog:any) => {
+              onEdit={(blog: any) => {
                 setEditingBlog(blog)
                 setShowForm(true)
               }}

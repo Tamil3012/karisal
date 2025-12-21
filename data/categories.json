@@ -1,26 +1,55 @@
 [
   {
     "id": "cat1",
-    "name": "Frontend",
-    "slug": "frontend",
+    "name": "Manali Trek",
+    "slug": "manali-trek",
+    "image": "/uploads/manali-trek.jpg",
+    "description": "Beautiful mountain trek experience",
+    "duration": "7 Days/6 Night",
+    "reviews": 70,
+    "rating": 5,
+    "isMostView": true,
+    "status": true,
     "createdAt": "2025-12-01T09:00:00Z"
   },
   {
     "id": "cat2",
-    "name": "Backend",
-    "slug": "backend",
+    "name": "History",
+    "slug": "history",
+    "image": "/uploads/history.jpg",
+    "description": "Learn about history for kids",
+    "isMostView": false,
+    "status": true,
     "createdAt": "2025-12-01T09:10:00Z"
   },
   {
     "id": "cat3",
-    "name": "DevOps",
-    "slug": "devops",
+    "name": "Animals",
+    "slug": "animals",
+    "image": "/uploads/animals.jpg",
+    "description": "Learn about animals for kids",
+    "isMostView": false,
+    "status": true,
     "createdAt": "2025-12-01T09:20:00Z"
   },
   {
-    "id": "mitxdp8tusbwrc4kfjq",
-    "name": "test",
-    "slug": "testing",
-    "createdAt": "2025-12-06T06:41:17.837Z"
+    "id": "cat4",
+    "name": "Entertainment",
+    "slug": "entertainment",
+    "image": "/uploads/entertainment.jpg",
+    "description": "Learn about entertainment for kids",
+    "isMostView": false,
+    "status": true,
+    "createdAt": "2025-12-01T09:30:00Z"
+  },
+  {
+    "id": "cat5",
+    "name": "Geography",
+    "slug": "geography",
+    "image": "/uploads/geography.jpg",
+    "description": "Learn geography for kids",
+    "isMostView": false,
+    "status": false,
+    "createdAt": "2025-12-01T09:40:00Z"
   }
 ]

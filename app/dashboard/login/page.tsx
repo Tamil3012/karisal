@@ -103,20 +103,20 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
-                className="w-full py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-medium"
+                className="w-full py-3 bg-gray-900 hover:bg-gray-800 !text-white rounded-lg font-medium"
                 disabled={loading}
               >
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </form>
 
-            <div className="mt-6 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            {/* <div className="mt-6 p-3 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-xs text-gray-600">
                 <strong>Demo Credentials:</strong> Username:{" "}
                 <code className="bg-white px-2 py-1 rounded text-blue-600">Tamil0904</code> Password:{" "}
                 <code className="bg-white px-2 py-1 rounded text-blue-600">Tamil@0904</code>
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

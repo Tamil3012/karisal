@@ -255,7 +255,7 @@ export default function BlogForm({ blog, onSave, onCancel }: BlogFormProps) {
 
         {/* Submit Buttons */}
         <div className="flex gap-4 pt-6">
-          <Button type="submit" size="lg" className="flex-1">
+          <Button type="submit" size="lg" className="flex-1 !text-white">
             {blog ? "Update Blog" : "Create Blog"}
           </Button>
           <Button type="button" variant="outline" size="lg" onClick={onCancel} className="flex-1">

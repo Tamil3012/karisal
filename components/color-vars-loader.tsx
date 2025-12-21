@@ -7,19 +7,24 @@ export default function ColorVarsLoader() {
     const loadColors = async () => {
       try {
         const response = await fetch("/api/colors")
-        const colors = await response.json()
+        if (!response.ok) return
 
-        const root = document.documentElement
-        Object.entries(colors).forEach(([key, value]) => {
-          root.style.setProperty(`--color-${key}`, value as string)
-        })
+        const colors = await response.json()
+        
+        if (colors && typeof colors === "object") {
+          Object.entries(colors).forEach(([key, value]) => {
+            if (typeof value === "string") {
+              document.documentElement.style.setProperty(`--${key}`, value)
+            }
+          })
+        }
       } catch (error) {
         console.error("Failed to load colors:", error)
       }
     }
 
     loadColors()
-  }, [])
+  }, []) // Empty dependency array - runs once only
 
-  return null
+  return null // This component doesn't render anything
 }

@@ -1,87 +1,96 @@
 "use client"
 
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import SearchModal from "./search-modal"
-import { Search, Bell } from "lucide-react"
+import { useState } from "react"
+import { Menu, X } from "lucide-react"
 
 export default function Header() {
-  const router = useRouter()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("/api/auth/verify")
-        setIsAuthenticated(response.ok)
-      } catch (error) {
-        setIsAuthenticated(false)
-      }
-    }
-
-    checkAuth()
-  }, [])
+  const navLinks = [
+    { href: "/", label: "Home", external: false },
+    { href: "/blog", label: "Blog", external: false },
+    { href: "/categories", label: "Categories", external: false },
+    { href: "/contact", label: "Contact", external: false },
+    { href: "/dashboard", label: "Link", external: true }, // ✅ Mark as external
+  ]
 
   return (
-    <>
-      <header className="sticky top-0 z-40 border-b border-gray-200 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg" style={{ backgroundColor: "var(--color-primary)" }} />
-              <span className="font-bold text-lg">Blog Hub</span>
-            </Link>
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <span className="text-2xl font-bold text-gray-900">Karisal</span>
+          </Link>
 
-            <nav className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-gray-600 hover:text-gray-900">
-                Home
-              </Link>
-              <Link href="/categories" className="text-gray-600 hover:text-gray-900">
-                Categories
-              </Link>
-              <a href="#" className="text-gray-600 hover:text-gray-900">
-                About
-              </a>
-              <a href="/contact" className="text-gray-600 hover:text-gray-900">
-                ContactUs
-              </a>
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-600 hover:text-gray-900"
-                aria-label="Search"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-600 hover:text-gray-900">
-                <Bell className="w-5 h-5" />
-              </button>
-
-              {isAuthenticated ? (
-                <Link href="/dashboard" target="blank">
-                  <Button className="!text-white" variant="default" size="sm">
-                    Dashboard
-                  </Button>
-                </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              link.external ? (
+                // ✅ Regular anchor tag for external/new tab links
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  {link.label}
+                </a>
               ) : (
-                <Link href="/dashboard/login" target="blank">
-                  <Button variant="default" size="sm">
-                    Admin Login
-                  </Button>
+                // Regular Next.js Link for internal links
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  {link.label}
                 </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
+              )
+            ))}
+          </nav>
 
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-    </>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden py-4 border-t border-gray-200">
+            {navLinks.map((link) => (
+              link.external ? (
+                // ✅ Regular anchor tag for mobile too
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {link.label}
+                </Link>
+              )
+            ))}
+          </nav>
+        )}
+      </div>
+    </header>
   )
 }
