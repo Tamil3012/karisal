@@ -1,11 +1,13 @@
-import { readJsonFile, writeJsonFile } from "@/lib/file-utils"
+import { readJsonFile, writeJsonFile, type Link } from "@/lib/file-utils"
 import { cookies } from "next/headers"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
+import { isAdmin } from "@/lib/admin-check"
 
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+// async function isAdmin() {
+//   const cookieStore = await cookies()
+//   return !!cookieStore.get("admin_session")
+// }
 
 export async function PUT(
   request: NextRequest,
@@ -18,29 +20,31 @@ export async function PUT(
   try {
     const { id } = await params
     const { title, href, categoryId } = await request.json()
-    let links = await readJsonFile("links.json")
+    const links = await readJsonFile<Link>("links.json")
 
-    if (!Array.isArray(links)) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 500 })
-    }
+    const linkIndex = links.findIndex((l) => l.id === id)
 
-    const link = links.find((l: any) => l.id === id)
-
-    if (!link) {
+    if (linkIndex === -1) {
       return NextResponse.json({ error: "Link not found" }, { status: 404 })
     }
 
-    link.title = title
-    link.href = href
-    link.categoryId = categoryId || null
+    links[linkIndex] = {
+      ...links[linkIndex],
+      title,
+      href,
+      categoryId: categoryId || null,
+    }
 
-    const success = await writeJsonFile("links.json", links)
+    const success = await writeJsonFile<Link>("links.json", links)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to update link" }, { status: 500 })
     }
 
-    return NextResponse.json(link)
+    // Invalidate cache
+    revalidatePath("/api/links")
+
+    return NextResponse.json(links[linkIndex])
   } catch (error) {
     console.error("Error updating link:", error)
     return NextResponse.json({ error: "Failed to update link" }, { status: 500 })
@@ -57,24 +61,23 @@ export async function DELETE(
 
   try {
     const { id } = await params
-    let links = await readJsonFile("links.json")
+    const links = await readJsonFile<Link>("links.json")
 
-    if (!Array.isArray(links)) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 500 })
-    }
-
-    const index = links.findIndex((l: any) => l.id === id)
+    const index = links.findIndex((l) => l.id === id)
 
     if (index === -1) {
       return NextResponse.json({ error: "Link not found" }, { status: 404 })
     }
 
     links.splice(index, 1)
-    const success = await writeJsonFile("links.json", links)
+    const success = await writeJsonFile<Link>("links.json", links)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to delete link" }, { status: 500 })
     }
+
+    // Invalidate cache
+    revalidatePath("/api/links")
 
     return NextResponse.json({ success: true })
   } catch (error) {

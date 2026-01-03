@@ -1,5 +1,4 @@
-import { cookies } from "next/headers"
-import { generateSessionToken } from "@/lib/auth"
+import { generateSessionToken, createSession } from "@/lib/auth"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
@@ -10,23 +9,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Username and password required" }, { status: 400 })
     }
 
+    // Validate credentials
     if (username !== "Tamil0904" || password !== "Tamil@0904") {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 })
     }
 
+    // Create session with activity tracking (use the function from lib/auth)
     const sessionToken = generateSessionToken()
-    const cookieStore = await cookies()
+    await createSession(sessionToken)
 
-    cookieStore.set("admin_session", sessionToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    })
-
-    return NextResponse.json({ success: true, token: sessionToken })
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.log("[v0] Login error:", error)
+    console.error("Login error:", error)
     return NextResponse.json({ error: "Login failed" }, { status: 500 })
   }
 }

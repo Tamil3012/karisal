@@ -9,10 +9,10 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Home", external: false },
-    { href: "/blog", label: "Blog", external: false },
+    // { href: "/blog", label: "Blog", external: false },
     { href: "/categories", label: "Categories", external: false },
     { href: "/contact", label: "Contact", external: false },
-    { href: "/dashboard", label: "Link", external: true }, // ✅ Mark as external
+    { href: "/dashboard", label: "Link", external: true }, 
   ]
 
   return (

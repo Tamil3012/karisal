@@ -31,14 +31,28 @@ export default function CategoryManager() {
   }, [])
 
   const fetchCategories = async () => {
-    try {
-      const response = await fetch("/api/categories")
-      const data = await response.json()
-      setCategories(data)
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to fetch categories", variant: "destructive" })
+  try {
+    // Use the public API endpoint with cache-busting
+    const response = await fetch("/api/categories", {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
     }
+    
+    const data = await response.json()
+    console.log("Fetched categories:", data.length) // Debug
+    setCategories(data)
+  } catch (error) {
+    console.error("Fetch error:", error)
+    toast({ title: "Error", description: "Failed to fetch categories", variant: "destructive" })
   }
+}
+
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

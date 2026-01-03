@@ -1,5 +1,6 @@
-import { readJsonFile, writeJsonFile, generateId } from "@/lib/file-utils"
+import { readJsonFile, writeJsonFile, generateId, type Blog, type Comment } from "@/lib/file-utils"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -10,39 +11,39 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: "Author and text required" }, { status: 400 })
     }
 
-    const blogs = await readJsonFile("blog.json")
+    const blogs = await readJsonFile<Blog>("blog.json")
+    const blogIndex = blogs.findIndex((b) => b.id === id)
 
-    if (!blogs) {
-      return NextResponse.json({ error: "Blogs not found" }, { status: 404 })
-    }
-
-    const blog = blogs.find((b: any) => b.id === id)
-
-    if (!blog) {
+    if (blogIndex === -1) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
 
-    const newComment = {
+    const newComment: Comment = {
       id: generateId(),
       author,
       text,
       createdAt: new Date().toISOString(),
     }
 
-    if (!blog.comments) {
-      blog.comments = []
+    if (!blogs[blogIndex].comments) {
+      blogs[blogIndex].comments = []
     }
 
-    blog.comments.push(newComment)
+    blogs[blogIndex].comments!.push(newComment)
 
-    const success = await writeJsonFile("blog.json", blogs)
+    const success = await writeJsonFile<Blog>("blog.json", blogs)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to add comment" }, { status: 500 })
     }
 
+    // Invalidate cache
+    revalidatePath("/api/blogs")
+    revalidatePath(`/api/blogs/${blogs[blogIndex].slug}`)
+
     return NextResponse.json(newComment)
   } catch (error) {
+    console.error("Add comment error:", error)
     return NextResponse.json({ error: "Failed to add comment" }, { status: 500 })
   }
 }

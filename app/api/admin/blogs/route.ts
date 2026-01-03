@@ -1,17 +1,20 @@
-import { readJsonFile, writeJsonFile, generateId, generateSlug } from "@/lib/file-utils"
+import { readJsonFile, writeJsonFile, generateId, generateSlug, type Blog } from "@/lib/file-utils"
 import { cookies } from "next/headers"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
+import { isAdmin } from "@/lib/admin-check"
 
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+// async function isAdmin() {
+//   const cookieStore = await cookies()
+//   return !!cookieStore.get("admin_session")
+// }
 
 export async function GET(request: NextRequest) {
   try {
-    const blogs = await readJsonFile("blog.json")
-    return NextResponse.json(blogs || [])
+    const blogs = await readJsonFile<Blog>("blog.json")
+    return NextResponse.json(blogs)
   } catch (error) {
+    console.error("Fetch blogs error:", error)
     return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 })
   }
 }
@@ -23,9 +26,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const blogs = await readJsonFile("blog.json")
+    const blogs = await readJsonFile<Blog>("blog.json")
 
-    const newBlog = {
+    const newBlog: Blog = {
       id: generateId(),
       slug: generateSlug(body.title),
       title: body.title,
@@ -46,14 +49,18 @@ export async function POST(request: NextRequest) {
     }
 
     blogs.push(newBlog)
-    const success = await writeJsonFile("blog.json", blogs)
+    const success = await writeJsonFile<Blog>("blog.json", blogs)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to create blog" }, { status: 500 })
     }
 
+    // Invalidate cache
+    revalidatePath("/api/blogs")
+
     return NextResponse.json(newBlog, { status: 201 })
   } catch (error) {
+    console.error("Create blog error:", error)
     return NextResponse.json({ error: "Failed to create blog" }, { status: 500 })
   }
 }

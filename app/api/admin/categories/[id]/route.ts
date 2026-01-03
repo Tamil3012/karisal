@@ -1,11 +1,7 @@
-import { readJsonFile, writeJsonFile } from "@/lib/file-utils"
-import { cookies } from "next/headers"
+import { readJsonFile, writeJsonFile, type Category } from "@/lib/file-utils"
+import { isAdmin } from "@/lib/admin-check"
 import { type NextRequest, NextResponse } from "next/server"
-
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+import { revalidatePath } from "next/cache"
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await isAdmin())) {
@@ -15,15 +11,16 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const { id } = await params
     const body = await request.json()
-    const categories = await readJsonFile("categories.json")
+    const categories = await readJsonFile<Category>("categories.json")
 
-    const category = categories.find((c: any) => c.id === id)
+    const categoryIndex = categories.findIndex((c) => c.id === id)
 
-    if (!category) {
+    if (categoryIndex === -1) {
       return NextResponse.json({ error: "Category not found" }, { status: 404 })
     }
 
-    Object.assign(category, {
+    categories[categoryIndex] = {
+      ...categories[categoryIndex],
       name: body.name,
       slug: body.slug,
       image: body.image || null,
@@ -34,16 +31,20 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       isMostView: body.isMostView || false,
       status: body.status !== false,
       updatedAt: new Date().toISOString(),
-    })
+    }
 
-    const success = await writeJsonFile("categories.json", categories)
+    const success = await writeJsonFile<Category>("categories.json", categories)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to update category" }, { status: 500 })
     }
 
-    return NextResponse.json(category)
+    revalidatePath("/api/categories")
+    revalidatePath("/api/admin/categories")
+
+    return NextResponse.json(categories[categoryIndex])
   } catch (error) {
+    console.error("Update error:", error)
     return NextResponse.json({ error: "Failed to update category" }, { status: 500 })
   }
 }
@@ -55,22 +56,27 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
   try {
     const { id } = await params
-    const categories = await readJsonFile("categories.json")
-    const index = categories.findIndex((c: any) => c.id === id)
+    const categories = await readJsonFile<Category>("categories.json")
+
+    const index = categories.findIndex((c) => c.id === id)
 
     if (index === -1) {
       return NextResponse.json({ error: "Category not found" }, { status: 404 })
     }
 
     categories.splice(index, 1)
-    const success = await writeJsonFile("categories.json", categories)
+    const success = await writeJsonFile<Category>("categories.json", categories)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to delete category" }, { status: 500 })
     }
 
+    revalidatePath("/api/categories")
+    revalidatePath("/api/admin/categories")
+
     return NextResponse.json({ success: true })
   } catch (error) {
+    console.error("Delete error:", error)
     return NextResponse.json({ error: "Failed to delete category" }, { status: 500 })
   }
 }

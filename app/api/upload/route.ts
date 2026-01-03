@@ -2,11 +2,12 @@ import { promises as fs } from "fs"
 import path from "path"
 import { type NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { isAdmin } from "@/lib/admin-check"
 
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+// async function isAdmin() {
+//   const cookieStore = await cookies()
+//   return !!cookieStore.get("admin_session")
+// }
 
 export async function POST(request: NextRequest) {
   if (!(await isAdmin())) {

@@ -1,13 +1,11 @@
-// app/api/blogs/route.ts
-import { readJsonFile } from "@/lib/file-utils"
+import { readJsonFile, type Blog } from "@/lib/file-utils"
 import { type NextRequest, NextResponse } from "next/server"
+
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
-    const blogs = await readJsonFile("blog.json")
-    if (!blogs) {
-      return NextResponse.json({ error: "Blogs not found" }, { status: 404 })
-    }
+    const blogs = await readJsonFile<Blog>("blog.json")
 
     const searchParams = request.nextUrl.searchParams
     const status = searchParams.get("status")
@@ -18,9 +16,9 @@ export async function GET(request: NextRequest) {
 
     let filtered = blogs
 
-    if (status) filtered = filtered.filter((b: any) => b.status === Number.parseInt(status))
-    if (featured) filtered = filtered.filter((b: any) => b.featured === Number.parseInt(featured))
-    if (category) filtered = filtered.filter((b: any) => b.categoryIds?.includes(category))
+    if (status) filtered = filtered.filter((b) => b.status === Number.parseInt(status))
+    if (featured) filtered = filtered.filter((b) => b.featured === Number.parseInt(featured))
+    if (category) filtered = filtered.filter((b) => b.categoryIds?.includes(category))
 
     const total = filtered.length
     const start = (page - 1) * limit
@@ -34,7 +32,7 @@ export async function GET(request: NextRequest) {
       pages: Math.ceil(total / limit),
     })
   } catch (error) {
-    console.error(error)
+    console.error("Fetch blogs error:", error)
     return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 })
   }
 }

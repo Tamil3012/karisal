@@ -1,11 +1,13 @@
-import { readJsonFile, writeJsonFile, generateId } from "@/lib/file-utils"
+import { readJsonFile, writeJsonFile, generateId, type Link } from "@/lib/file-utils"
 import { cookies } from "next/headers"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
+import { isAdmin } from "@/lib/admin-check"
 
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+// async function isAdmin() {
+//   const cookieStore = await cookies()
+//   return !!cookieStore.get("admin_session")
+// }
 
 export async function POST(request: NextRequest) {
   if (!(await isAdmin())) {
@@ -14,13 +16,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const { title, href, categoryId } = await request.json()
-    let links = await readJsonFile("links.json")
-    
-    if (!Array.isArray(links)) {
-      links = []
-    }
+    const links = await readJsonFile<Link>("links.json")
 
-    const newLink = {
+    const newLink: Link = {
       id: generateId(),
       title,
       href,
@@ -29,11 +27,14 @@ export async function POST(request: NextRequest) {
     }
 
     links.push(newLink)
-    const success = await writeJsonFile("links.json", links)
+    const success = await writeJsonFile<Link>("links.json", links)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to create link" }, { status: 500 })
     }
+
+    // Invalidate cache
+    revalidatePath("/api/links")
 
     return NextResponse.json(newLink, { status: 201 })
   } catch (error) {

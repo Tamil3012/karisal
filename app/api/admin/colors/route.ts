@@ -1,11 +1,12 @@
 import { writeJsonFile } from "@/lib/file-utils"
 import { cookies } from "next/headers"
 import { type NextRequest, NextResponse } from "next/server"
+import { isAdmin } from "@/lib/admin-check"
 
-async function isAdmin() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get("admin_session")
-}
+// async function isAdmin() {
+//   const cookieStore = await cookies()
+//   return !!cookieStore.get("admin_session")
+// }
 
 export async function PUT(request: NextRequest) {
   if (!(await isAdmin())) {

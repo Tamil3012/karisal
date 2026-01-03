@@ -1,31 +1,33 @@
-import { readJsonFile, writeJsonFile } from "@/lib/file-utils"
+import { readJsonFile, writeJsonFile, type Blog } from "@/lib/file-utils"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const blogs = await readJsonFile("blog.json")
+    const blogs = await readJsonFile<Blog>("blog.json")
 
-    if (!blogs) {
-      return NextResponse.json({ error: "Blogs not found" }, { status: 404 })
-    }
+    const blogIndex = blogs.findIndex((b) => b.id === id)
 
-    const blog = blogs.find((b: any) => b.id === id)
-
-    if (!blog) {
+    if (blogIndex === -1) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
 
-    blog.likes = (blog.likes || 0) + 1
+    blogs[blogIndex].likes = (blogs[blogIndex].likes || 0) + 1
 
-    const success = await writeJsonFile("blog.json", blogs)
+    const success = await writeJsonFile<Blog>("blog.json", blogs)
 
     if (!success) {
       return NextResponse.json({ error: "Failed to update blog" }, { status: 500 })
     }
 
-    return NextResponse.json({ likes: blog.likes })
+    // Invalidate cache
+    revalidatePath("/api/blogs")
+    revalidatePath(`/api/blogs/${blogs[blogIndex].slug}`)
+
+    return NextResponse.json({ likes: blogs[blogIndex].likes })
   } catch (error) {
+    console.error("Like blog error:", error)
     return NextResponse.json({ error: "Failed to like blog" }, { status: 500 })
   }
 }

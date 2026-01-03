@@ -1,6 +1,7 @@
-// app/api/blogs/[slug]/route.ts
-import { readJsonFile } from "@/lib/file-utils"
+import { readJsonFile, type Blog } from "@/lib/file-utils"
 import { NextResponse } from "next/server"
+
+export const dynamic = 'force-dynamic'
 
 export async function GET(
   request: Request,
@@ -8,13 +9,9 @@ export async function GET(
 ) {
   try {
     const { slug } = await params
-    const blogs = await readJsonFile("blog.json")
+    const blogs = await readJsonFile<Blog>("blog.json")
 
-    if (!blogs || !Array.isArray(blogs)) {
-      return NextResponse.json({ error: "Blogs data invalid" }, { status: 500 })
-    }
-
-    const blog = blogs.find((b: any) => b.slug === slug)
+    const blog = blogs.find((b) => b.slug === slug)
 
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
